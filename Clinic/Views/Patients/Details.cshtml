@@ -1,3 +1,30 @@
 @{
-    Layout = "_Layout";
+  Layout = "_Layout";
 }
+
+@using Clinic.Models
+@model Clinic.Models.Patient
+
+<h2>Patient Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This Patient has not been assigned with any Dr yet.</p>
+}
+else
+{
+  <h4>@Html.DisplayNameFor(model => model.Name) has the following Dr's:</h4>
+  <ul>
+  @foreach(DoctorPatient join in Model.JoinEntities)
+  {
+    <li>@join.Doctor.Name</li>
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Edit patient's profile", "Edit", new { id = Model.PatientId })  </p>
+<p>@Html.ActionLink("Delete this profile", "Delete", new { id = Model.PatientId})
+<br />
+<p>@Html.ActionLink("Back to list", "Index")</p>

@@ -23,7 +23,6 @@ namespace Clinic.Controllers
 
     public ActionResult Create()
     {
-      // PatientId = new SelectList(_db.Patients, "PatientId", "Name");
       return View();
     }
 
@@ -42,6 +41,79 @@ namespace Clinic.Controllers
       }
     }
 
+    public ActionResult Details(int id)
+    {
+      Patient thisPatient = _db.Patients.Include(p => p.JoinEntities)
+                                        .ThenInclude(together => together.Doctor)
+                                        .FirstOrDefault(p => p.PatientId == id);
+      return View(thisPatient);
+    }
     
+    public ActionResult Edit(int id)
+    {
+      Patient thisPatient = _db.Patients.FirstOrDefault(p => p.PatientId == id);
+      return View(thisPatient);
+    }
+
+    // [HttpPost]
+    // public ActionResult Edit(Patient patient, string action, int id)
+    // {
+    //     if (action == "edit")
+    //     {
+    //         if (!ModelState.IsValid)
+    //         {
+    //             return View(patient);
+    //         }
+
+    //         // Fetch the patient with the correct ID from the database
+    //         var existingPatient = _db.Patients.FirstOrDefault(p => p.PatientId == id);
+
+    //         if (existingPatient != null)
+    //         {
+    //             // Update patient properties based on the edited data
+    //             existingPatient.Name = patient.Name; // Update other properties as needed
+
+    //             _db.Patients.Update(existingPatient);
+    //             _db.SaveChanges();
+    //         }
+    //     }
+    //     else if (action == "delete")
+    //     {
+    //         // Fetch the patient with the correct ID from the database
+    //         var patientToDelete = _db.Patients.FirstOrDefault(p => p.PatientId == id);
+
+    //         if (patientToDelete != null)
+    //         {
+    //             _db.Patients.Remove(patientToDelete);
+    //             _db.SaveChanges();
+    //         }
+    //     }
+
+    //     return RedirectToAction("Index");
+    //   }
+
+    [HttpPost]
+    public ActionResult Edit(Patient patient)
+    {
+      _db.Patients.Update(patient);
+      _db.SaveChanges();
+      return RedirectToAction ("Index");
+    }
+    
+
+    public ActionResult Delete(int id)
+    {
+      Patient thisPatient = _db.Patients.FirstOrDefault(p => p.PatientId == id);
+      return View(thisPatient);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      Patient thisPatient = _db.Patients.FirstOrDefault(p => p.PatientId == id);
+      _db.Patients.Remove(thisPatient);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }

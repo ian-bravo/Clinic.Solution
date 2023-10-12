@@ -1,3 +1,34 @@
 @{
-    Layout = "_Layout";
+  Layout = "_Layout";
 }
+
+@model Clinic.Models.Patient
+
+<h2>Edit</h2>
+
+<h4>Edit @Html.DisplayFor(model => model.Name) info:</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.PatientId)
+    @* @Html.Hidden("action", "edit") *@
+
+    @Html.LabelFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
+
+    <input type="submit" value="Save" />
+}
+@* in case we dont want to follow CRUD conventions and we want to include delete fx
+    in the same page as edit fx, we could un-comment this block of code,
+    along with its corresponding controller *@
+@* 
+<br> <br>
+<p>Is she cancelled? delete her!?<p>
+@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)
+@using (Html.BeginForm())
+{
+     @Html.Hidden("action", "delete")
+    <input type="submit" value="Delete Profile" />
+} *@
+
+<p>@Html.ActionLink("Back to Patient list", "Index")</p>
