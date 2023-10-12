@@ -17,6 +17,15 @@
     @Html.TextBoxFor(model => model.Speciality)
     <p>@Html.ValidationMessageFor(model => model.Speciality, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
 
+    @Html.LabelFor(model => model.Title, "Title")
+    @Html.DropDownListFor(model => model.Title, new List<SelectListItem>
+    {
+        new SelectListItem { Text = "MD", Value = "MD" },
+        new SelectListItem { Text = "RN", Value = "RN" },
+        new SelectListItem { Text = "PA", Value = "PA" }
+    }, "Select a Title", new { @class = "form-control" })
+    @* @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" }) *@
+
     <input type="submit" value="Add new doctor" class="btn btn-primary" />
 }
 <p>@Html.ActionLink("Show all doctors", "Index")</p>

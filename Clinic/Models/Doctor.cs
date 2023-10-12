@@ -10,6 +10,7 @@ namespace Clinic.Models
     public string Name { get; set; }
     [Required(ErrorMessage = "Doctor has to have a specialty. Please type in.")]
     public string Speciality { get; set; }
+    public string Title { get; set; }
     public List<DoctorPatient> JoinEntities { get;}
   }
 }

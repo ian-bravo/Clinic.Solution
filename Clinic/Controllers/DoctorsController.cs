@@ -31,6 +31,7 @@ namespace Clinic.Controllers
     {
       if (!ModelState.IsValid)
       {
+        string title = doctor.Title;
         return View(doctor);
       }
       else
