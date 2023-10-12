@@ -79,5 +79,28 @@ namespace Clinic.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult AddPatient(int id)
+    {
+      Doctor thisDoctor = _db.Doctors.FirstOrDefault(d => d.DoctorId == id);
+      ViewBag.PatientId = new SelectList(_db.Patients, "PatientId", "Name");
+      return View(thisDoctor);
+    }
+
+    [HttpPost]
+    public ActionResult AddPatient(Doctor doctor, int patientId)
+    {
+      #nullable enable
+      DoctorPatient? joinEntity = _db.DoctorPatients.FirstOrDefault(join => (join.PatientId == patientId && join.DoctorId == doctor.DoctorId));
+      #nullable disable
+      if (joinEntity == null && patientId != 0)
+      {
+        _db.DoctorPatients.Add(new DoctorPatient() {
+          PatientId = patientId, DoctorId = doctor.DoctorId
+        });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = doctor.DoctorId });
+    }
   }
 }

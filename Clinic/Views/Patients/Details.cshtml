@@ -23,8 +23,8 @@ else
   }
   </ul>
 }
-
-<p>@Html.ActionLink("Edit patient's profile", "Edit", new { id = Model.PatientId })  </p>
+<p>@Html.ActionLink("Add a doctor", "AddDoctor", new { id = Model.PatientId }) </p>
+<p>@Html.ActionLink("Edit patient's profile", "Edit", new { id = Model.PatientId })</p>
 <p>@Html.ActionLink("Delete this profile", "Delete", new { id = Model.PatientId})
 <br />
 <p>@Html.ActionLink("Back to list", "Index")</p>
