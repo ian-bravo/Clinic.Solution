@@ -18,13 +18,12 @@ namespace Clinic.Controllers
 
     public ActionResult Index()
     {
-      List<Patient> model= _db.Patients.Include(i => i.Doctor).ToList();
-      return View(model);
-    }    
+      return View(_db.Patients.ToList());
+    }
 
     public ActionResult Create()
     {
-      ViewBag.PatientId = new SelectList(_db.Patients, "PatientId", "Name");
+      // PatientId = new SelectList(_db.Patients, "PatientId", "Name");
       return View();
     }
 
@@ -33,15 +32,16 @@ namespace Clinic.Controllers
     {
       if (!ModelState.IsValid)
       {
-        ViewBag.PatientId = new SelectList(_db.Patients, "PatientId", "Name");
         return View(patient);
       }
-      else
+      
       {
-        _db.Patient.Add(patient);
+        _db.Patients.Add(patient);
         _db.SaveChanges();
         return RedirectToAction("Index");
       }
     }
+
+    
   }
 }
