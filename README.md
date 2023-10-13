@@ -28,6 +28,10 @@ Installing/Configuring MySQL and MySQL Workbench:
 
 1. Follow the instructions on this <a href="https://old.learnhowtoprogram.com/c-and-net/getting-started-with-c/installing-and-configuring-mysql">page</a> for installing and configuring MySQL and MySQL Workbench
 
+Installing dotnet-ef:
+1. Run the following command to globally install dotnet-ef tools which will allow you to create migrations and create databases:
+   `$ dotnet tool install --global dotnet-ef --version 6.0.0`
+
 Cloning the Repo:
 1. Open Terminal.
 2. Change your directory to where you would want the cloned directory.
@@ -56,7 +60,9 @@ Cloning the Repo:
 
 Running the program:
 1. Navigate to the project's production directory "Clinic" using the terminal.
-2. Within the command line, run the command `dotnet watch run` to compile and execute the console application in developer mode.
+2. Run the following command to update the database:
+   `$ dotnet ef database update`
+3. Within the command line, run the command `dotnet watch run` to compile and execute the console application in developer mode.
 
 ## Known Bugs
 
